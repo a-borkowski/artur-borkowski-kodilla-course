@@ -5,6 +5,7 @@ import com.kodilla.testing.weather.stub.WeatherForecast;
 import org.junit.Assert;
 import org.junit.Test;
 import java.util.HashMap;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -22,8 +23,10 @@ public class WeatherForecastTestSuite {
         when(temperaturesMock.getTemperatures()).thenReturn(temperaturesMap);
 
         WeatherForecast weatherForecast = new WeatherForecast(temperaturesMock);
+
         //When
         int quantityOfSensors = weatherForecast.calculateForecast().size();
+
         //Then
         Assert.assertEquals(5, quantityOfSensors);
     }
