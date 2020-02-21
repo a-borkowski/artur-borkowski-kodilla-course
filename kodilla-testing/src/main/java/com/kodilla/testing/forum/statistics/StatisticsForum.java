@@ -8,6 +8,36 @@ public class StatisticsForum {
     private double commentsPerUser;
     private double commentsPerPosts;
 
+    public void calculateAdvStatistics(Statistics statistics) {
+        userCount = statistics.usersNames().size();
+        postCount = statistics.postsCount();
+        commentCount = statistics.commentsCount();
+        postsPerUser = calculatePostsPerUser();
+        commentsPerUser = calculateCommentsPerUser();
+        commentsPerPosts = calculateCommentsPerPosts();
+    }
+
+    public double calculatePostsPerUser(){
+        if (userCount > 0) {
+            return (double) postCount / userCount;
+        } else
+            return 0;
+    }
+
+    public double calculateCommentsPerUser(){
+        if (userCount >0) {
+            return (double) commentCount / userCount;
+        } else
+            return 0;
+    }
+
+    public double calculateCommentsPerPosts(){
+        if (postCount >0) {
+            return (double) commentCount / postCount;
+        } else
+            return 0;
+    }
+
     public int getUserCount() {
         return userCount;
     }
@@ -30,36 +60,6 @@ public class StatisticsForum {
 
     public double getCommentsPerPosts() {
         return commentsPerPosts;
-    }
-
-    public void calculateAdvStatistics(Statistics statistics) {
-        userCount = statistics.usersNames().size();
-        postCount = statistics.postsCount();
-        commentCount = statistics.commentsCount();
-        postsPerUser = calculatePostsPerUser();
-        commentsPerUser = calculateCommentsPerUser();
-        commentsPerPosts = calculateCommentsPerPosts();
-    }
-
-    private double calculatePostsPerUser(){
-        if (userCount > 0) {
-            return (double) postCount / userCount;
-        } else
-            return 0;
-    }
-
-    private double calculateCommentsPerUser(){
-        if (userCount >0) {
-            return (double) commentCount / userCount;
-        } else
-            return 0;
-    }
-
-    private double calculateCommentsPerPosts(){
-        if (userCount >0) {
-            return (double) commentCount / postCount;
-        } else
-            return 0;
     }
 
     public void showStatistics(){
