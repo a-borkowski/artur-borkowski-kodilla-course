@@ -3,7 +3,7 @@ package com.kodilla.stream.portfolio;
 import org.junit.Assert;
 import org.junit.Test;
 import java.time.LocalDate;
-import java.time.Period;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -142,16 +142,16 @@ public class BoardTestSuite {
         List<TaskList> inProgressTasks = new ArrayList<>();
         inProgressTasks.add(new TaskList("In progress"));
 
-        int numberOfDays = project.getTaskLists().stream()
+        long numberOfDays = project.getTaskLists().stream()
                 .filter(inProgressTasks::contains)
                 .flatMap(tl -> tl.getTasks().stream())
-                .map(t -> Period.between(t.getCreated(), LocalDate.now()).getDays())
-                .reduce(0, (sum, current) -> sum += current);
+                .map(t -> ChronoUnit.DAYS.between(t.getCreated(), LocalDate.now()))
+                .reduce((long) 0, (sum, current) -> sum += current);
 
         long numberOfTask = project.getTaskLists().stream()
                 .filter(inProgressTasks::contains)
                 .flatMap(tl -> tl.getTasks().stream())
-                .map(t -> Period.between(t.getCreated(), LocalDate.now()).getDays())
+                .map(t -> ChronoUnit.DAYS.between(t.getCreated(), LocalDate.now()))
                 .count();
 
         double average = numberOfDays/numberOfTask;
@@ -172,7 +172,7 @@ public class BoardTestSuite {
         double averageNumbersOfDays = project.getTaskLists().stream()
                 .filter(inProgressTasks::contains)
                 .flatMap(tl -> tl.getTasks().stream())
-                .map(t -> Period.between(t.getCreated(), LocalDate.now()).getDays())
+                .map(t -> ChronoUnit.DAYS.between(t.getCreated(), LocalDate.now()))
                 .mapToDouble(n -> n)
                 .average()
                 .getAsDouble();
